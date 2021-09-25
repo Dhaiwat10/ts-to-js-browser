@@ -1,0 +1,29 @@
+<script src="https://unpkg.com/typescript@latest/lib/typescriptServices.js"></script>
+<script>
+  // To 'store' console.logs so that we can read them later for output
+  console.stdlog = console.log.bind(console);
+  console.logs = [];
+  console.log = function () {
+    console.logs.push(Array.from(arguments));
+    console.stdlog.apply(console, arguments);
+  }
+
+  // Typescript code to be transpiled
+  const tsCode = `
+  function add(a: number, b: number): number {
+    return a + b;
+  }
+
+  console.log(add(1, 2));
+`;
+
+  // Transpiling from TS to JS
+  const jsCode = window.ts.transpile(tsCode);
+  // Displaying the transpiled code
+  document.write(jsCode + '<br /><hr />');
+  
+  // Running the transpiled code
+  const result = eval(jsCode);
+  // Displaying the result
+  document.write(console.logs);
+</script>
